@@ -11,7 +11,7 @@ import java.sql.*;
 public class MemberRepositoryV0 {
 
     public Member save(Member member) throws SQLException {
-        String sql = "inset into member(member_id, money) values(?, ?)";
+        String sql = "insert into member(member_id, money) values(?, ?)";
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -38,6 +38,14 @@ public class MemberRepositoryV0 {
                 rs.close();
             } catch (SQLException e) {
                 log.info("error", e);
+            }
+        }
+
+        if(stmt != null){
+            try {
+                stmt.close();
+            }catch (SQLException e){
+                log.info("error",e);
             }
         }
 
