@@ -1,4 +1,4 @@
-package hello.domain;
+package hello.jdbc.domain;
 
 
 import lombok.Data;
@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Member {
-    private String username;
+    private String memberId;
     private int money;
 
-
-    public Member(String username, int money) {
-        this.username = username;
+    public Member(String memberId, int money) {
+        this.memberId = memberId;
         this.money = money;
     }
 }
