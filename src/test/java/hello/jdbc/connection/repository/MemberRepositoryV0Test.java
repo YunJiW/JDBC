@@ -1,11 +1,12 @@
 package hello.jdbc.connection.repository;
 
 import hello.jdbc.domain.Member;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class MemberRepositoryV0Test {
 
@@ -17,7 +18,16 @@ class MemberRepositoryV0Test {
         Member member = new Member("memberV0",10000);
         repository.save(member);
 
+        Member findMember = repository.findById(member.getMemberId());
 
+        assertThat(findMember).isEqualTo(member);
+
+
+        repository.update(member.getMemberId(),20000);
+        Member updateMember = repository.findById(member.getMemberId());
+
+        assertThat(updateMember.getMoney()).isEqualTo(20000);
     }
+
 
 }
