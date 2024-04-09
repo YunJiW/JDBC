@@ -22,8 +22,6 @@ class MemberRepositoryV1Test {
 
     @BeforeEach
     void BeforeEach() throws Exception {
-
-
         //커넥션 풀링
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(ConnectionConst.URL);
