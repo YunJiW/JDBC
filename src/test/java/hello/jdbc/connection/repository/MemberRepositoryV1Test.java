@@ -1,6 +1,10 @@
 package hello.jdbc.connection.repository;
 
+import com.zaxxer.hikari.HikariDataSource;
+import hello.jdbc.connection.ConnectionConst;
 import hello.jdbc.domain.Member;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -8,13 +12,31 @@ import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
+
+@Slf4j
 class MemberRepositoryV1Test {
-    MemberRepositoryV0 repository = new MemberRepositoryV0();
+
+
+    MemberRepositoryV1 repository;
+
+    @BeforeEach
+    void BeforeEach() throws Exception {
+
+
+        //커넥션 풀링
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(ConnectionConst.URL);
+        dataSource.setUsername(ConnectionConst.USERNAME);
+        dataSource.setPassword(ConnectionConst.PASSWORD);
+
+        repository = new MemberRepositoryV1(dataSource);
+    }
+
 
     @Test
     void crud() throws SQLException {
+        log.info("start");
 
         Member member = new Member("memberV0", 10000);
         repository.save(member);
