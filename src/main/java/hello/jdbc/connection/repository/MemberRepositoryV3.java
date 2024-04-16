@@ -120,7 +120,9 @@ public class MemberRepositoryV3 {
     private void close(Connection con, Statement stmt, ResultSet rs) {
         JdbcUtils.closeResultSet(rs);
         JdbcUtils.closeStatement(stmt);
-        JdbcUtils.closeConnection(con);
+
+
+        DataSourceUtils.releaseConnection(con,dataSource);
     }
 
     private Connection getConnection() throws SQLException {
